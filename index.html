@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="담임·전담교사를 위한 교실 발표 방법 도감과 진행 도우미">
+<title>발표나침반</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#EEF2EF; --surface:#FFFFFF; --surface2:#F6F8F6; --ink:#1B2A24; --muted:#5B6B64; --line:#D5DDD8;
+  --accent:#1E6A50; --accent-ink:#FFFFFF; --accent-soft:#DCEDE5; --hi:#E9B620; --hi-soft:#FBF0CC; --danger:#C2463D;
+  --c-pick:#B4552B; --c-all:#1E6A50; --c-low:#3D6FA8; --c-group:#7A4FA0; --c-discuss:#A0405F; --c-act:#8A6A12; --c-formal:#44545D;
+  --board:#173A2F; --board2:#1E4638; --chalk:#F2F0E6; --chalk-dim:#A9C0B5; --chalk-hi:#F5CF4E;
+  --display:"Do Hyeon","IBM Plex Sans KR",system-ui,sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#101714; --surface:#17211D; --surface2:#1C2823; --ink:#E6EEE9; --muted:#97A8A0; --line:#2B3A34;
+    --accent:#4FB58E; --accent-ink:#0B1511; --accent-soft:#1D3A2F; --hi:#F2C94C; --hi-soft:#3A3219; --danger:#E0736A;
+    --c-pick:#E08A5E; --c-all:#4FB58E; --c-low:#7FA9DC; --c-group:#B592D6; --c-discuss:#DB7C9C; --c-act:#D5B04E; --c-formal:#9DB0BA;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#101714; --surface:#17211D; --surface2:#1C2823; --ink:#E6EEE9; --muted:#97A8A0; --line:#2B3A34;
+  --accent:#4FB58E; --accent-ink:#0B1511; --accent-soft:#1D3A2F; --hi:#F2C94C; --hi-soft:#3A3219; --danger:#E0736A;
+  --c-pick:#E08A5E; --c-all:#4FB58E; --c-low:#7FA9DC; --c-group:#B592D6; --c-discuss:#DB7C9C; --c-act:#D5B04E; --c-formal:#9DB0BA;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;padding-inline:16px;padding-block:0 48px}
+.app{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:.01em}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:18px 10px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand b{font-family:var(--display);font-weight:400;font-size:28px;display:block;line-height:1.1}
+.brand small{color:var(--muted);font-size:13px}
+.mark{width:44px;height:44px;flex:none}
+.classpick{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+select,input[type=text],input[type=number],textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:20px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.tabs button{background:none;border:0;padding:12px 16px;font-family:var(--display);font-size:19px;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--hi)}
+
+/* generic */
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:500}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.big{padding:12px 20px;font-size:17px}
+.btn.ghost{background:none}
+.btn.danger{color:var(--danger)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:14px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.label{font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+
+/* catalog */
+.filters{display:grid;gap:12px;margin-bottom:18px}
+.filters .search{width:100%;font-size:16px;padding:11px 14px}
+.frow{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.frow .label{width:64px;flex:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px 12px;display:flex;flex-direction:column;gap:6px;position:relative}
+.card:hover{border-color:var(--accent)}
+.card h3{font-size:21px;line-height:1.25}
+.card p{margin:0;color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cat{font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--cc)}
+.cat::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--cc);margin-right:6px;vertical-align:1px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px;border-top:1px dashed var(--line);font-variant-numeric:tabular-nums}
+.dots{letter-spacing:1px;color:var(--hi)}
+.tag{font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;background:var(--hi-soft);color:var(--ink)}
+.count{font-size:13px;color:var(--muted);margin:0 0 10px}
+.recipes{margin-bottom:18px}
+.recipes .list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.rcp{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 6px 6px 12px}
+.rcp small{color:var(--muted)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,20,16,.55);z-index:40;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px}
+.sheet{background:var(--surface);color:var(--ink);border-radius:14px;max-width:720px;width:100%;padding:24px;position:relative;margin-block:auto}
+.x{position:absolute;right:12px;top:12px;border:0;background:var(--surface2);border-radius:8px;width:36px;height:36px;font-size:18px}
+.sheet h2{font-size:32px;line-height:1.15;padding-right:40px}
+.steps{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:start;padding:10px 12px;background:var(--surface2);border-radius:8px;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--display);font-size:20px;color:var(--accent);line-height:1.3}
+.steps .t{font-weight:700}
+.steps .d{display:block;color:var(--muted);font-size:14px;font-weight:400}
+.steps .sec{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted);white-space:nowrap}
+.loopmark{font-size:11px;font-weight:700;color:var(--c-group);margin-left:6px}
+.tip{background:var(--hi-soft);border-radius:8px;padding:10px 14px;font-size:14px;margin:10px 0}
+.src a{color:var(--accent)}
+
+/* config */
+.cfg-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.cfg-row .t{font-weight:500}
+.stepper{display:flex;align-items:center;gap:4px}
+.stepper button{width:38px;height:38px;border-radius:8px;border:1px solid var(--line);background:var(--surface2);font-size:18px;line-height:1}
+.stepper input{width:74px;text-align:center;font-variant-numeric:tabular-nums;font-size:17px;padding:6px}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0;padding:12px 14px;background:var(--accent-soft);border-radius:8px}
+.total b{font-family:var(--display);font-weight:400;font-size:28px;font-variant-numeric:tabular-nums}
+.opts{display:grid;gap:8px;margin:10px 0 16px}
+.opts label{display:flex;gap:8px;align-items:center}
+.sub{font-size:12px;color:var(--muted)}
+
+/* board */
+#board{position:fixed;inset:0;z-index:60;background:var(--board);color:var(--chalk);display:grid;grid-template-rows:auto 1fr auto;
+  background-image:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.06),transparent 55%),radial-gradient(ellipse at 90% 90%,rgba(0,0,0,.25),transparent 60%);
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 20px calc(env(safe-area-inset-bottom,0px) + 14px)}
+#board .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+#board .bname{font-family:var(--display);font-size:24px}
+#board .bpos{color:var(--chalk-dim);font-variant-numeric:tabular-nums}
+.bbtn{background:rgba(255,255,255,.08);color:var(--chalk);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 16px;font-size:16px}
+.bbtn:hover{background:rgba(255,255,255,.16)}
+.bbtn.main{background:var(--chalk-hi);color:#1B2A24;border-color:var(--chalk-hi);font-weight:700;min-width:120px}
+.bmain{display:grid;grid-template-columns:1fr 260px;gap:24px;min-height:0}
+.bcenter{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;min-width:0}
+.round{font-family:var(--display);font-size:22px;color:var(--chalk-hi);min-height:1.3em}
+.btitle{font-family:var(--display);font-size:clamp(36px,6vw,76px);line-height:1.1;text-wrap:balance}
+.bdesc{font-size:clamp(16px,2vw,24px);color:var(--chalk-dim);max-width:40ch;min-height:1.5em}
+.clock{font-family:var(--display);font-size:clamp(88px,20vw,230px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;transition:color .3s}
+.clock.warn{color:var(--chalk-hi)}
+.clock.over{color:#FF8F7D;animation:blink 1s steps(2) infinite}
+.clock.manual{font-size:clamp(32px,5vw,56px);color:var(--chalk-dim)}
+@keyframes blink{50%{opacity:.35}}
+.pbar{width:min(640px,90%);height:8px;background:rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--chalk-hi);width:0;transition:width .25s linear}
+.rail{list-style:none;margin:0;padding:12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;background:rgba(0,0,0,.15);border-radius:12px}
+.rail li{padding:6px 10px;border-radius:6px;font-size:14px;color:var(--chalk-dim);display:flex;justify-content:space-between;gap:8px}
+.rail li.on{background:rgba(245,207,78,.18);color:var(--chalk)}
+.rail li.done{opacity:.45;text-decoration:line-through}
+.rail span{font-variant-numeric:tabular-nums}
+.bctrl{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;align-items:center}
+.bnext{color:var(--chalk-dim);font-size:15px;text-align:center;margin-bottom:8px}
+.bpick{position:absolute;inset:0;background:rgba(10,30,22,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center}
+.bpick .who{font-family:var(--display);font-size:clamp(64px,14vw,160px);color:var(--chalk-hi);line-height:1}
+@media (max-width:760px){.bmain{grid-template-columns:1fr}.rail{display:none}}
+
+/* tools */
+.toolnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.toolnav button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:10px 12px}
+.toolnav button b{display:block;font-family:var(--display);font-weight:400;font-size:18px}
+.toolnav button span{font-size:12px;color:var(--muted)}
+.toolnav button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.stage{background:var(--board);color:var(--chalk);border-radius:14px;padding:28px 20px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;position:relative}
+.stage .hint{color:var(--chalk-dim);font-size:15px;max-width:52ch}
+.stage .huge{font-family:var(--display);font-size:clamp(56px,11vw,130px);line-height:1.05;color:var(--chalk-hi)}
+.stage .mid{font-family:var(--display);font-size:clamp(28px,5vw,48px);line-height:1.2}
+.stage select,.stage input{background:rgba(255,255,255,.08);color:var(--chalk);border-color:rgba(255,255,255,.2)}
+.stage label{color:var(--chalk-dim);font-size:14px;display:flex;gap:6px;align-items:center}
+.stage option{color:#1B2A24}
+.shake{animation:shake .12s linear infinite}
+@keyframes shake{0%{transform:translateX(-2px)}50%{transform:translateX(2px)}100%{transform:translateX(-2px)}}
+.beats{display:flex;gap:14px}
+.beats i{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,.3);display:grid;place-items:center;font-style:normal;font-family:var(--display);font-size:16px;color:var(--chalk-dim)}
+.beats i.clap{border-color:var(--chalk-hi)}
+.beats i.on{background:var(--chalk-hi);color:#1B2A24}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px;width:100%;max-width:820px}
+.namegrid button{background:rgba(255,255,255,.07);color:var(--chalk);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px 4px;font-size:15px}
+.namegrid button.used{opacity:.35}
+.chain{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:820px;font-size:15px}
+.chain span{background:rgba(245,207,78,.15);border-radius:6px;padding:3px 8px}
+.chain em{color:var(--chalk-dim);font-style:normal}
+.groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;width:100%;max-width:900px;text-align:left}
+.groups div{background:rgba(255,255,255,.07);border-radius:10px;padding:10px 12px}
+.groups b{font-family:var(--display);font-weight:400;color:var(--chalk-hi);font-size:20px;display:block}
+.passq{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.passq span{border:1px dashed var(--chalk-dim);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--chalk-dim)}
+.coach{margin-top:20px}
+.coach h3{font-size:22px;margin-bottom:8px}
+.coach ul{margin:0;padding-left:18px;display:grid;gap:6px}
+
+/* class */
+.classgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px}
+@media (max-width:760px){.classgrid{grid-template-columns:1fr}}
+.classgrid textarea{width:100%;min-height:260px;resize:vertical}
+.bars{display:grid;gap:4px;max-height:520px;overflow-y:auto}
+.bars .b{display:grid;grid-template-columns:72px 1fr 34px;gap:8px;align-items:center;font-size:14px}
+.bars .track{height:14px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.bars .track i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.bars .zero{color:var(--danger);font-weight:700}
+.bars .n{text-align:right;font-variant-numeric:tabular-nums}
+.summary{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.summary div b{font-family:var(--display);font-weight:400;font-size:30px;display:block;line-height:1}
+.confirm{background:var(--hi-soft);padding:10px 12px;border-radius:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* recommend */
+.q{margin-bottom:18px}
+.q h3{font-size:20px;margin-bottom:8px}
+.rec-out{display:grid;gap:10px;margin-top:10px}
+.rec-item{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.rec-item .rank{font-family:var(--display);font-size:34px;color:var(--hi);line-height:1}
+.rec-item h3{font-size:22px}
+.rec-item p{margin:0;font-size:14px;color:var(--muted)}
+@media (max-width:560px){.rec-item{grid-template-columns:34px 1fr}.rec-item .row{grid-column:1/-1}}
+
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;z-index:80;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="var(--accent)"/><circle cx="22" cy="22" r="15" fill="none" stroke="var(--accent-ink)" stroke-opacity=".35" stroke-width="1.5"/><path d="M22 7 L27 22 L22 37 L17 22 Z" fill="var(--accent-ink)"/><path d="M22 7 L27 22 L17 22 Z" fill="var(--hi)"/><circle cx="22" cy="22" r="2.4" fill="var(--accent)"/></svg>
+      <div><b>발표나침반</b><small>교실 발표 방법 도감 · 진행 도우미 (프로토타입)</small></div>
+    </div>
+    <label class="classpick" for="classSel">지금 수업하는 반 <select id="classSel"></select></label>
+  </header>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="catalog" aria-selected="true">발표 방법 도감</button>
+    <button role="tab" data-tab="recommend" aria-selected="false">추천받기</button>
+    <button role="tab" data-tab="tools" aria-selected="false">발표자 정하기 도구</button>
+    <button role="tab" data-tab="class" aria-selected="false">우리 반 기록</button>
+  </nav>
+  <main>
+    <section id="v-catalog"></section>
+    <section id="v-recommend" hidden></section>
+    <section id="v-tools" hidden></section>
+    <section id="v-class" hidden></section>
+  </main>
+</div>
+
+<div id="modal" class="modal" hidden><div class="sheet" role="dialog" aria-modal="true"><button class="x" data-act="close" aria-label="닫기">✕</button><div id="modalBody"></div></div></div>
+
+<div id="board" hidden>
+  <div class="bar">
+    <div><div class="bname" id="bName"></div><div class="bpos" id="bPos"></div></div>
+    <div class="row"><button class="bbtn" data-act="bpick">발표자 뽑기</button><button class="bbtn" data-act="bfull">전체 화면</button><button class="bbtn" data-act="bclose">끝내기 ✕</button></div>
+  </div>
+  <div class="bmain">
+    <div class="bcenter">
+      <div class="round" id="bRound"></div>
+      <div class="btitle" id="bTitle"></div>
+      <div class="bdesc" id="bDesc"></div>
+      <div class="clock" id="bClock">0:00</div>
+      <div class="pbar"><i id="bBar"></i></div>
+    </div>
+    <ol class="rail" id="bRail"></ol>
+  </div>
+  <div>
+    <div class="bnext" id="bNext"></div>
+    <div class="bctrl">
+      <button class="bbtn" data-act="bprev">◀ 이전</button>
+      <button class="bbtn" data-act="bminus">−30초</button>
+      <button class="bbtn main" data-act="bpause" id="bPause">일시정지</button>
+      <button class="bbtn" data-act="bplus">+1분</button>
+      <button class="bbtn" data-act="bnext">다음 ▶</button>
+    </div>
+  </div>
+  <div class="bpick" id="bPickLayer" hidden></div>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+/* ---------- 출처 ---------- */
+const SRC={
+  c:{name:'citrusy97 블로그 · 눈치게임 발표',url:'https://blog.naver.com/citrusy97/224332741215'},
+  u:{name:'urimilssam 블로그 · 수업 친구 모임',url:'https://blog.naver.com/urimilssam/224217182273'},
+  t:{name:'teacher0325 블로그 · 재밌는 발표 시간',url:'https://blog.naver.com/teacher0325/221499339498'}
+};
+const CATS={pick:'발표자 정하기',all:'전원 참여',low:'부담 낮춤',group:'모둠 공유',discuss:'토의·토론',act:'표현·연기',formal:'정식 발표'};
+const TOOLS={pick:'공정 뽑기',rps:'텔레파시 가위바위보',love:'이웃을 사랑하십니까',arrow:'발표 화살표',beat:'번개 박자',pass:'줄줄이·패스 명단',relay:'릴레이 기록',groups:'모둠 편성'};
+
+/* 단계: [제목, 초(0=수동으로 넘김), 설명, 반복(1=라운드마다, 2=라운드 사이에만)] */
+const METHODS=[
+{id:'nunchi',name:'눈치게임 발표',cat:'pick',group:'전체',burden:1,stage:['도입'],m:5,src:['c'],
+ sum:'눈치게임으로 발표자를 정해요. 게임이라 발표를 자주 안 하던 학생도 쉽게 참여해요.',
+ steps:[['눈치게임 시작',0,'1부터 차례로 외치며 일어나요. 같은 숫자를 동시에 외치면 다시 앉아요.'],['발표할 사람 정하기',0,'일어난 학생만, 앉은 학생만, 또는 마지막 한 명이 발표해요.'],['가볍게 답하기',120,'“어제 무엇을 먹었나요?”처럼 바로 답할 수 있는 질문으로 해요.']],
+ tip:'깊이 생각할 질문보다 직관적인 질문에 어울려요. 동기유발 때 쓰기 좋아요.'},
+{id:'arrow',name:'발표 화살표',cat:'pick',group:'전체',burden:1,stage:['도입','전개'],m:3,src:['t'],tool:'arrow',
+ sum:'모두 친구 한 명을 손가락으로 가리켜요. 교사가 부른 숫자만큼 화살표를 따라가서 걸린 학생이 발표해요.',
+ steps:[['화살표 쏘기',0,'“발표 화살표를 쏘세요!” 하면 아무 친구나 손가락으로 가리켜요.'],['시작과 숫자 부르기',0,'예) “상준이부터 시작할게요. 발표 숫자는 8!”'],['화살표 따라가기',0,'숫자만큼 손가락을 따라가요. 마지막에 걸린 학생이 답해요.']]},
+{id:'rps',name:'텔레파시 가위바위보',cat:'pick',group:'전체',burden:1,stage:['도입','전개'],m:3,src:['t'],tool:'rps',
+ sum:'교사와 가위바위보를 해서 똑같이 낸 학생만 발표해요.',
+ steps:[['다 함께 가위바위보',0,'“가위, 바위, 보!”'],['같은 사람 발표',0,'교사와 똑같이 낸 학생이 일어나 발표해요.']]},
+{id:'love',name:'이웃을 사랑하십니까 발표',cat:'pick',group:'전체',burden:1,stage:['도입'],m:5,src:['t'],tool:'love',
+ sum:'“선생님은 안경 낀 친구를 사랑합니다”처럼 조건을 부르면 해당하는 학생이 일어나 발표해요.',
+ steps:[['조건 부르기',0,'“선생님은 ○○한 친구를 사랑합니다.”'],['해당 학생 발표',0,'조건에 맞는 학생이 일어나서 발표해요.']],
+ tip:'“선생님을 사랑하는 친구”처럼 모두가 일어나고 싶은 넓은 조건을 섞으면 분위기가 좋아져요.'},
+{id:'freeze',name:'얼음땡 발표',cat:'all',group:'전체',burden:1,stage:['전개'],src:['t'],tool:'pick',
+ sum:'답을 생각한 학생은 “얼음!” 하고 일어나요. 교사가 “땡” 해 준 학생이 발표하고, 생각이 같은 학생은 함께 앉아요.',
+ steps:[['문제 내기',0,'교사가 문제를 내요.'],['생각하고 얼음',60,'답을 생각하면 “얼음!” 외치고 일어나 얼음 동작을 해요.'],['땡! 발표',0,'대부분 일어나면 교사가 한 명을 “땡” 해요. 답하고 앉아요.'],['같은 생각은 함께 앉기',0,'비슷한 생각을 한 학생도 같이 앉아요.']]},
+{id:'mole',name:'두더지 발표',cat:'all',group:'전체',burden:1,stage:['전개'],src:['u','t'],tool:'relay',
+ sum:'생각을 적고 모두 일어나요. 발표자와 생각이 같으면 앉아요. 비슷한 의견과 다른 의견이 한눈에 보여요.',
+ steps:[['생각 적기',120,'각자 생각을 적어요.'],['준비되면 일어나기',0,'다 적은 사람부터 일어나요.'],['발표하고 앉기',0,'릴레이나 지명으로 발표해요. 발표자와 생각이 같으면 앉아요.'],['끝까지 선 친구 듣기',0,'마지막까지 서 있는 친구의 다른 생각을 들어요.']],
+ tip:'친구들과 다른 의견, 즉 창의적인 생각을 한 학생을 발견하기 좋아요. 발표 부담이 큰 학생에게도 알맞아요.'},
+{id:'lightning',name:'번개 발표',cat:'all',group:'전체',burden:1,stage:['도입','정리'],src:['u','t'],tool:'beat',
+ sum:'돌아가며 짧게 답하고, 사이마다 다 함께 박수를 두 번 쳐요. 생각이 안 나면 패스해요.',
+ steps:[['주제 알리기',0,'“좋아하는 과목을 번개 발표할게요. 1번부터 시작.”'],['번개처럼 한 바퀴',180,'국어 (짝짝) 수학 (짝짝) 영어 (짝짝)…'],['패스한 친구 차례',60,'한 바퀴 뒤에 패스한 친구가 말해요.']]},
+{id:'chain',name:'줄줄이 발표',cat:'all',group:'전체',burden:2,stage:['전개','정리'],src:['u'],tool:'pass',
+ sum:'생각을 적을 시간을 준 뒤, 앉은 자리 순서대로 모두 발표해요. 준비가 덜 됐으면 “통과”하고 한 바퀴 뒤에 해요.',
+ steps:[['생각 적기',180,'발표할 내용을 먼저 적어요.'],['자리 순서대로 발표',300,'준비가 덜 됐으면 “통과”를 외쳐요.'],['통과한 친구 발표',120,'한 바퀴 돌아오면 통과한 친구가 발표해요.']],
+ tip:'발표가 어려운 학생은 친구 발표를 듣고 공감한 내용을 말해도 괜찮다고 알려 주세요.'},
+{id:'relay',name:'릴레이 발표',cat:'all',group:'전체',burden:2,stage:['전개'],src:['u'],tool:'relay',
+ sum:'발표를 마친 학생이 다음 발표자를 직접 불러요. 거수·지명 없이 이어지고, 교사는 발표를 화면에 기록해요.',
+ steps:[['주제 알리기',0,'“~ 주제로 릴레이 발표를 하겠습니다.”'],['첫 발표자 부르기',0,'둘러보고 “○○ 발표해 주십시오.”'],['이어서 부르기',300,'발표를 마친 학생이 둘러보고 다음 친구를 불러요. 더 없으면 자리에 앉아요.']]},
+{id:'brain',name:'패스 있는 브레인스토밍',cat:'all',group:'전체',burden:1,stage:['도입','전개'],src:['u'],tool:'pass',
+ sum:'돌아가며 아이디어를 내고, 없으면 패스해요. 모두 패스하면, 즉 새 아이디어가 더 없으면 끝나요.',
+ steps:[['주제 알리기',0,'어떤 아이디어든 좋다고 알려요.'],['돌아가며 아이디어',300,'떠오르지 않으면 “패스”.'],['모두 패스하면 끝',0,'나온 아이디어를 함께 살펴봐요.']]},
+{id:'parrot',name:'앵무새 발표',cat:'all',group:'전체',burden:2,stage:['전개'],m:8,src:['t'],
+ sum:'앞 친구의 발표를 따라 말하며 정리한 뒤 내 생각을 덧붙여요. 듣기 훈련에 좋아요.',
+ steps:[['첫 발표',0,'한 학생이 생각을 말해요.'],['앵무새처럼 정리',0,'다음 학생이 “○○는 ~라고 했어요.”라고 정리하고 자기 생각을 말해요.'],['계속 이어가기',0,'같은 방식으로 이어가요.']]},
+{id:'pair',name:'짝 발표 (어깨짝·앞뒤짝·얼굴짝)',cat:'low',group:'짝',burden:1,stage:['도입','전개','정리'],src:['u'],
+ sum:'반 전체 앞이 아니라 옆, 앞뒤, 마주 앉은 짝에게 발표해요.',
+ steps:[['짝 정하기',0,'어깨짝(옆), 앞뒤짝, 얼굴짝(마주 보기) 중 하나를 골라요.'],['한 사람 발표',60,'짝의 눈을 보며 말해요.'],['바꿔서 발표',60,'듣던 사람이 말해요.'],['짝 생각 소개',120,'원하는 학생이 짝의 생각을 전체에 소개해요.']]},
+{id:'record',name:'기록·수신호 발표',cat:'low',group:'개인',burden:1,stage:['전개','정리'],src:['u'],
+ sum:'큰 소리로 말하기가 두려운 학생은 배움공책에 쓰거나 손 신호로 발표해요.',
+ steps:[['공책에 기록',180,'생각을 공책에 적어요. 적는 것도 발표예요.'],['수신호로 참여',0,'동의하면 엄지, 다른 생각이면 손바닥 등 신호를 약속해요.']],
+ tip:'말하기에 자신 없는 학생이 편하게 참여하는 첫 단계예요. 익숙해지면 짝 발표로 넘어가요.'},
+{id:'tps',name:'생각-짝-나누기 (Think-Pair-Share)',cat:'low',group:'짝',burden:1,stage:['전개'],
+ sum:'혼자 생각하고, 짝과 나눈 뒤, 전체와 공유해요. 가장 기본이 되는 부담 낮은 발표 구조예요.',
+ steps:[['혼자 생각하기',60,'말하지 않고 생각을 적어요.'],['짝과 나누기',120,'서로 1분씩 말해요.'],['전체 나누기',180,'짝의 생각이나 둘의 공통점을 발표해요.']]},
+{id:'postit',name:'포스트잇 발표',cat:'low',group:'개인',burden:1,stage:['도입','정리'],
+ sum:'생각을 포스트잇에 써서 칠판에 붙이고, 비슷한 것끼리 묶어 함께 읽어요.',
+ steps:[['포스트잇 쓰기',120,'한 장에 생각 하나.'],['칠판에 붙이기',60,'정해진 칸에 붙여요.'],['비슷한 것끼리 묶기',120,'교사나 대표 학생이 묶어요.'],['함께 읽기',120,'묶음마다 이름을 붙여요.']]},
+{id:'321',name:'3-2-1 정리 발표',cat:'low',group:'개인',burden:1,stage:['정리'],
+ sum:'배운 점 3가지, 흥미로운 점 2가지, 궁금한 점 1가지를 적고 몇 명이 발표해요.',
+ steps:[['배운 점 3가지',120,''],['흥미로운 점 2가지',60,''],['궁금한 점 1가지',60,''],['몇 명 발표',120,'궁금한 점은 다음 시간 도입에 써요.']]},
+{id:'gallery',name:'갤러리 워크',cat:'group',group:'모둠',burden:1,stage:['전개','정리'],rounds:4,
+ sum:'모둠 결과물을 벽에 붙이고, 모둠별로 돌아다니며 감상하고 포스트잇으로 피드백해요.',
+ steps:[['작품 게시',120,'모둠 결과물을 정해진 자리에 붙여요.'],['감상하고 피드백',180,'칭찬 1개, 질문 1개를 포스트잇에 적어요.',1],['다음 작품으로 이동',30,'시계 방향으로 한 칸 이동해요.',2],['우리 작품 피드백 읽기',120,'받은 포스트잇을 읽고 한 가지를 고쳐요.']]},
+{id:'2stay',name:'둘 가고 둘 남기',cat:'group',group:'모둠',burden:2,stage:['전개'],rounds:3,
+ sum:'모둠에서 두 명은 남아 우리 모둠 결과를 설명하고, 두 명은 다른 모둠에 가서 설명을 들어요.',
+ steps:[['모둠 결과 정리',180,'누구나 설명할 수 있게 연습해요.'],['설명하고 듣기',240,'남은 두 명은 설명, 간 두 명은 듣고 질문해요.',1],['다음 모둠으로 이동',30,'간 두 명이 다음 모둠으로 이동해요.',2],['돌아와서 나누기',180,'들은 내용을 우리 모둠에 전해요.']]},
+{id:'1go',name:'하나 가고 셋 남기',cat:'group',group:'모둠',burden:2,stage:['전개'],rounds:3,
+ sum:'모둠마다 한 명이 다른 모둠에 가서 우리 결과를 소개하고, 남은 세 명은 손님의 설명을 들어요.',
+ steps:[['소개할 내용 준비',120,'대표가 소개할 내용을 정리해요.'],['손님 모둠에서 소개',180,'대표 한 명이 다른 모둠에서 소개하고 질문을 받아요.',1],['대표 바꾸고 이동',30,'대표를 바꿔 다음 모둠으로 가요.',2],['모둠으로 돌아와 공유',180,'받은 질문과 의견을 나눠요.']]},
+{id:'jigsaw',name:'직소 (전문가 모둠)',cat:'group',group:'모둠',burden:2,stage:['전개'],
+ sum:'모둠원이 주제를 나눠 전문가 모둠에서 공부한 뒤, 원래 모둠으로 돌아와 가르쳐요.',
+ steps:[['주제 나누기',60,'모둠원마다 다른 주제를 맡아요.'],['전문가 모둠 탐구',600,'같은 주제끼리 모여 공부해요.'],['원래 모둠에서 가르치기',480,'한 사람씩 친구들에게 설명해요.'],['확인하고 정리',180,'퀴즈나 정리표로 확인해요.']]},
+{id:'roundrobin',name:'라운드 로빈',cat:'group',group:'모둠',burden:1,stage:['도입','전개'],rounds:4,
+ sum:'모둠 안에서 정해진 시간만큼 한 사람씩 돌아가며 말해요. 모두가 같은 시간을 가져요.',
+ steps:[['생각할 시간',60,'말할 내용을 떠올려요.'],['한 사람씩 말하기',30,'시간이 끝나면 옆 사람 차례예요.',1],['모둠 대표 한 문장',60,'모둠 생각을 한 문장으로 모아요.']]},
+{id:'numbered',name:'번호 발표 (모둠 번호 부르기)',cat:'group',group:'모둠',burden:2,stage:['전개'],
+ sum:'모둠 안에서 번호를 정하고 함께 답을 준비해요. 교사가 부른 번호의 학생이 모둠을 대표해 발표해요.',
+ steps:[['모둠 안 번호 정하기',0,'1~4번을 정해요.'],['함께 답 준비',180,'누가 불려도 말할 수 있게 도와줘요.'],['번호 부르기',0,'교사가 번호를 불러요.'],['대표 발표',180,'해당 번호 학생이 모둠 답을 발표해요.']]},
+{id:'worldcafe',name:'월드카페',cat:'discuss',group:'모둠',burden:2,stage:['전개'],rounds:3,
+ sum:'테이블마다 주제를 두고 대화해요. 호스트만 남고 나머지는 다른 테이블로 옮겨 가며 생각을 이어 붙여요.',
+ steps:[['주제·규칙 안내',120,'테이블 주제와 호스트를 정해요.'],['테이블 대화',420,'전지에 생각을 적으며 대화해요.',1],['자리 이동',60,'호스트만 남고 다른 테이블로 옮겨요.',2],['호스트 요약',180,'호스트가 새 손님에게 지난 대화를 요약해요.'],['전체 공유',300,'테이블마다 핵심을 발표해요.']]},
+{id:'fishbowl',name:'피시볼 토의',cat:'discuss',group:'전체',burden:3,stage:['전개'],rounds:2,
+ sum:'안쪽 원은 토의하고 바깥 원은 관찰하며 기록해요. 라운드마다 역할을 바꿔요.',
+ steps:[['자리 만들기',60,'안쪽 원과 바깥 원으로 앉아요.'],['안쪽 원 토의',420,'바깥 원은 좋은 말과 근거를 기록해요.',1],['역할 바꾸기',60,'안과 밖이 자리를 바꿔요.',2],['관찰 소감 나누기',240,'바깥 원이 본 것을 말해요.']]},
+{id:'valueline',name:'가치 수직선',cat:'discuss',group:'전체',burden:2,stage:['도입','전개'],
+ sum:'교실 바닥에 선을 긋고, 찬성부터 반대까지 내 생각의 위치에 서서 이유를 말해요.',
+ steps:[['질문 제시',60,'찬반이 갈리는 질문을 내요.'],['선 위에 서기',60,'내 생각만큼의 위치에 서요.'],['위치별 이유 말하기',300,'양 끝과 가운데부터 들어요.'],['다시 서기',120,'생각이 바뀌면 옮기고 이유를 말해요.']]},
+{id:'traffic',name:'신호등 토론',cat:'discuss',group:'전체',burden:1,stage:['전개'],
+ sum:'초록(찬성), 노랑(잘 모르겠음), 빨강(반대) 카드를 들고 색깔별로 이유를 발표해요.',
+ steps:[['주장 제시',60,''],['카드 들기',30,'셋에 동시에 들어요.'],['색깔별 이유 발표',300,'노랑부터 들으면 부담이 적어요.'],['다시 들기',60,'생각이 바뀐 사람을 확인해요.']]},
+{id:'havruta',name:'하브루타',cat:'discuss',group:'짝',burden:2,stage:['전개'],rounds:2,
+ sum:'짝과 질문을 주고받으며 대화하고 논쟁해요. 짝을 바꿔 한 번 더 해요.',
+ steps:[['질문 만들기',180,'읽은 내용으로 질문 2개를 만들어요.'],['짝과 묻고 답하기',300,'“왜?”를 이어 가며 대화해요.',1],['짝 바꾸기',30,'',2],['가장 좋은 질문 나누기',240,'반 전체와 나눠요.']]},
+{id:'hotseat',name:'핫시팅',cat:'act',group:'전체',burden:3,stage:['전개'],
+ sum:'한 학생이 이야기 속 인물이 되어 의자에 앉고, 친구들의 질문에 인물로서 답해요.',
+ steps:[['인물 정하기',60,''],['질문 준비',180,'인물에게 묻고 싶은 것을 적어요.'],['인물 인터뷰',360,'의자에 앉은 학생이 인물이 되어 답해요.'],['소감 나누기',120,'']]},
+{id:'tableau',name:'정지 장면 (타블로)',cat:'act',group:'모둠',burden:2,stage:['전개','정리'],rounds:5,
+ sum:'모둠이 장면을 몸으로 멈춰 표현하고, 다른 모둠이 어떤 장면인지 맞히고 인물을 인터뷰해요.',
+ steps:[['장면 고르기',60,''],['모둠 연습',300,''],['정지 장면 보여주기',30,'“셋, 둘, 하나, 얼음!”',1],['추측하고 인터뷰',120,'관객이 장면을 맞히고, 교사가 어깨를 짚은 인물이 한마디 해요.',1]]},
+{id:'anchor',name:'뉴스 앵커 발표',cat:'act',group:'모둠',burden:2,stage:['정리'],rounds:5,
+ sum:'배운 내용을 뉴스 기사로 만들어 앵커와 기자 역할로 방송하듯 발표해요.',
+ steps:[['기사 쓰기',600,'앵커 멘트와 현장 기자 멘트를 나눠요.'],['리허설',180,''],['방송 발표',120,'“지금부터 ○○ 뉴스를 전해 드립니다.”',1],['시청자 한마디',30,'',1]]},
+{id:'press',name:'기자회견 발표',cat:'act',group:'전체',burden:2,stage:['전개','정리'],
+ sum:'모둠 대변인이 기자회견을 열고, 다른 학생들은 기자가 되어 질문해요.',
+ steps:[['역할 정하기',60,'대변인과 기자를 정해요.'],['질문 준비',180,''],['기자회견',360,'대변인이 답하고 모둠원이 도와요.'],['기사 한 줄 쓰기',120,'']]},
+{id:'speech1',name:'1분 스피치',cat:'formal',group:'개인',burden:3,stage:['도입','정리'],rounds:5,
+ sum:'정해진 주제로 1분 동안 말해요. 아침 활동으로 매일 몇 명씩 하기 좋아요.',
+ steps:[['준비',180,'처음-가운데-끝으로 메모해요.'],['1분 스피치',60,'',1],['칭찬 한마디',30,'듣는 사람이 칭찬을 해요.',1]]},
+{id:'pecha',name:'페차쿠차 (축소형)',cat:'formal',group:'모둠',burden:3,stage:['정리'],rounds:4,
+ sum:'사진 6장을 20초씩, 자동으로 넘기며 딱 2분 동안 발표해요.',
+ steps:[['사진 6장 준비',600,''],['2분 발표',120,'한 장에 20초씩 자동으로 넘겨요.',1],['질문 하나',60,'',1]]},
+{id:'visual',name:'비주얼씽킹 발표',cat:'formal',group:'개인',burden:2,stage:['정리'],rounds:4,
+ sum:'배운 내용을 그림과 핵심어로 한 장에 정리하고, 그림을 보여 주며 발표해요.',
+ steps:[['핵심어 고르기',120,''],['그림으로 정리',600,''],['그림 보며 발표',90,'',1]]}
+];
+const byId=Object.fromEntries(METHODS.map(m=>[m.id,m]));
+
+/* ---------- 저장 (이 브라우저에만) ---------- */
+const store={
+  get(k,d){try{const v=localStorage.getItem('bn.'+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('bn.'+k,JSON.stringify(v))}catch(e){}}
+};
+const SAMPLE_NAMES='김민준 이서연 박도윤 최하윤 정시우 강지아 조하준 윤서아 장은우 임지유 한예준 오수아 서지호 신채원 권유준 황다은 안주원 송하린 전건우 홍예린 문우진 양소율 배시윤 백나은'.split(' ');
+let classes=store.get('classes',null);
+if(!classes||!classes.length){
+  const counts={};SAMPLE_NAMES.forEach((n,i)=>counts[n]=[3,1,0,2,4,1,0,2,1,3,0,1,2,5,1,0,2,1,3,1,0,2,1,1][i]);
+  classes=[{id:'c1',name:'5학년 3반 (예시)',students:SAMPLE_NAMES,counts,last:{}},
+           {id:'c2',name:'6학년 1반 (예시)',students:'강서준 김나윤 남도현 류시은 박준서 서하은 오민재 유채아 이재윤 전소윤 정유찬 최지안 한서우 황예나'.split(' '),counts:{},last:{}}];
+}
+let curId=store.get('cur',classes[0].id);
+let recipes=store.get('recipes',null);
+if(!recipes){recipes=[{id:'r1',name:'우리 반 월드카페 (예시)',mid:'worldcafe',rounds:4,secs:[60,300,60,120,240],autoNext:true,warn:true,sound:'bell'}]}
+const save=()=>{store.set('classes',classes);store.set('cur',curId);store.set('recipes',recipes)};
+const cur=()=>classes.find(c=>c.id===curId)||classes[0];
+
+/* ---------- 유틸 ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const parseTime=v=>{v=String(v).trim();if(!v)return 0;if(v.includes(':')){const[a,b]=v.split(':');return (parseInt(a)||0)*60+(parseInt(b)||0)}const n=parseFloat(v);return isNaN(n)?0:Math.round(n*60)};
+const shuffle=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+const rand=a=>a[Math.floor(Math.random()*a.length)];
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1800)}
+function recordTalk(name){const c=cur();c.counts[name]=(c.counts[name]||0)+1;c.last[name]=Date.now();save();toast(name+' 발표 기록 ✓')}
+
+/* ---------- 소리 ---------- */
+let ac=null;
+function audio(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac}
+function tone(f,d,type='sine',v=.25,w=0){const a=audio();if(!a)return;const t=a.currentTime+w,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d)}
+function clap(){const a=audio();if(!a)return;const len=a.sampleRate*.12,buf=a.createBuffer(1,len,a.sampleRate),d=buf.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();f.type='bandpass';f.frequency.value=1400;g.gain.value=.8;s.buffer=buf;s.connect(f).connect(g).connect(a.destination);s.start()}
+const SOUNDS={
+  bell:()=>{tone(880,1.6,'sine',.28);tone(1320,1.2,'sine',.12);tone(2200,.6,'sine',.05)},
+  dingdong:()=>{tone(784,.7,'triangle',.3);tone(622,1.1,'triangle',.3,.45)},
+  xylo:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.4,'triangle',.25,i*.12))},
+  none:()=>{}
+};
+const SOUND_NAMES={bell:'종소리',dingdong:'딩동',xylo:'실로폰',none:'소리 없음'};
+const warnBeep=()=>{tone(660,.15,'triangle',.18);tone(660,.15,'triangle',.18,.22)};
+
+/* ---------- 탭 ---------- */
+let tab='catalog';
+function showTab(t){stopBeat();tab=t;document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+  ['catalog','recommend','tools','class'].forEach(v=>$('#v-'+v).hidden=v!==t);render()}
+function render(){renderClassSel();({catalog:renderCatalog,recommend:renderRecommend,tools:renderTools,class:renderClass})[tab]()}
+function renderClassSel(){$('#classSel').innerHTML=classes.map(c=>`<option value="${c.id}" ${c.id===curId?'selected':''}>${esc(c.name)} · ${c.students.length}명</option>`).join('')}
+
+/* ---------- 도감 ---------- */
+const F={q:'',cat:'',group:'',burden:0,stage:''};
+function estSec(m,rounds,secs){return buildSeq(m,rounds??m.rounds??1,secs).reduce((a,s)=>a+s.sec,0)}
+function estMin(m){const s=estSec(m);return Math.max(m.m||0,Math.round(s/60))||3}
+const dots=n=>'●'.repeat(n)+'<span class="muted">'+'○'.repeat(3-n)+'</span>';
+function cardHTML(m){return `<button class="card" data-act="open" data-id="${m.id}" style="--cc:var(--c-${m.cat})">
+  <span class="cat">${CATS[m.cat]}</span><h3>${esc(m.name)}</h3><p>${esc(m.sum)}</p>
+  <span class="meta"><span>${m.group}</span><span>약 ${estMin(m)}분</span><span title="발표 부담">부담 <span class="dots">${dots(m.burden)}</span></span>${m.rounds?'<span class="tag">라운드</span>':''}${m.tool?'<span class="tag">도구</span>':''}${m.src?'<span class="tag">블로그</span>':''}</span></button>`}
+function chipRow(label,key,opts){return `<div class="frow"><span class="label">${label}</span><div class="chips">${opts.map(([v,t])=>`<button class="chip" data-act="f" data-k="${key}" data-v="${v}" aria-pressed="${String(F[key])===String(v)}">${t}</button>`).join('')}</div></div>`}
+function renderCatalog(){
+  const q=F.q.trim();
+  const list=METHODS.filter(m=>(!F.cat||m.cat===F.cat)&&(!F.group||m.group===F.group)&&(!F.burden||m.burden<=F.burden)&&(!F.stage||m.stage.includes(F.stage))&&(!q||(m.name+m.sum).includes(q)));
+  const rs=recipes.length?`<div class="recipes"><span class="label">내 수업 레시피 (저장한 초시계 설정)</span><div class="list">${recipes.map(r=>`<div class="rcp"><span><b>${esc(r.name)}</b> <small>${esc(byId[r.mid]?.name||'')} · ${fmt(estSec(byId[r.mid],r.rounds,r.secs))}</small></span><button class="btn primary" data-act="runRecipe" data-id="${r.id}">▶ 바로 진행</button><button class="btn ghost" data-act="delRecipe" data-id="${r.id}" aria-label="레시피 삭제">✕</button></div>`).join('')}</div></div>`:'';
+  $('#v-catalog').innerHTML=`${rs}<div class="filters">
+    <input class="search" type="text" id="q" placeholder="방법 이름이나 설명으로 찾기 (예: 짝, 모둠, 박수)" value="${esc(F.q)}">
+    ${chipRow('분류','cat',[['','전체'],...Object.entries(CATS)])}
+    ${chipRow('형태','group',[['','전체'],['개인','개인'],['짝','짝'],['모둠','모둠'],['전체','반 전체']])}
+    ${chipRow('수업 단계','stage',[['','전체'],['도입','도입'],['전개','전개'],['정리','정리']])}
+    ${chipRow('발표 부담','burden',[[0,'전체'],[1,'낮은 것만'],[2,'보통까지']])}
+  </div><p class="count">${list.length}개 방법</p><div class="grid">${list.map(cardHTML).join('')||'<p class="muted">조건에 맞는 방법이 없어요. 필터를 줄여 보세요.</p>'}</div>`;
+  const qi=$('#q');qi.oninput=()=>{F.q=qi.value;const p=qi.selectionStart;renderCatalog();const n=$('#q');n.focus();n.setSelectionRange(p,p)};
+}
+
+/* ---------- 상세 ---------- */
+function openModal(html){$('#modalBody').innerHTML=html;$('#modal').hidden=false;$('#modal').scrollTop=0}
+function closeModal(){$('#modal').hidden=true}
+function openDetail(id){const m=byId[id];
+  const loopNote=m.rounds?`<p class="small muted">보라색 <b style="color:var(--c-group)">반복</b> 표시 단계는 라운드 수만큼 되풀이돼요. 기본 ${m.rounds}라운드.</p>`:'';
+  openModal(`<span class="cat" style="--cc:var(--c-${m.cat})">${CATS[m.cat]}</span><h2>${esc(m.name)}</h2>
+  <p>${esc(m.sum)}</p>
+  <div class="meta" style="border:0;padding:0"><span>${m.group}</span><span>약 ${estMin(m)}분</span><span>부담 <span class="dots">${dots(m.burden)}</span></span><span>${m.stage.join('·')}</span></div>
+  <ol class="steps">${m.steps.map(s=>`<li><span class="t">${esc(s[0])}${s[3]?`<span class="loopmark">${s[3]===2?'라운드 사이':'반복'}</span>`:''}<span class="d">${esc(s[2]||'')}</span></span><span class="sec">${s[1]?fmt(s[1]):'수동'}</span></li>`).join('')}</ol>
+  ${loopNote}${m.tip?`<div class="tip"><b>선생님 팁</b> · ${esc(m.tip)}</div>`:''}
+  ${m.src?`<p class="small src">출처: ${m.src.map(k=>`<a href="${SRC[k].url}" target="_blank" rel="noopener">${SRC[k].name}</a>`).join(' · ')}</p>`:''}
+  <div class="row" style="margin-top:14px"><button class="btn primary big" data-act="config" data-id="${m.id}">▶ 초시계 설정하고 진행</button>${m.tool?`<button class="btn big" data-act="gotool" data-tool="${m.tool}">${TOOLS[m.tool]} 도구 열기</button>`:''}</div>`)}
+
+/* ---------- 진행 설정 ---------- */
+function buildSeq(m,rounds,secs){
+  const st=m.steps.map((s,i)=>({title:s[0],desc:s[2]||'',sec:secs?secs[i]:s[1],loop:s[3]||0,i}));
+  const first=st.findIndex(s=>s.loop),hasLoop=first>=0;
+  if(!hasLoop)return st.map(s=>({...s,round:0}));
+  let last=st.length-1;while(!st[last].loop)last--;
+  const pre=st.slice(0,first),loop=st.slice(first,last+1),post=st.slice(last+1),out=pre.map(s=>({...s,round:0}));
+  for(let r=1;r<=rounds;r++)loop.forEach(s=>{if(s.loop===2&&r===rounds)return;out.push({...s,round:r})});
+  return out.concat(post.map(s=>({...s,round:0})));
+}
+let cfg=null;
+function openConfig(mid,rec){const m=byId[mid];
+  cfg=rec?{...rec,secs:[...rec.secs],mid}:{mid,rounds:m.rounds||1,secs:m.steps.map(s=>s[1]),autoNext:false,warn:true,sound:'bell'};
+  drawConfig()}
+function drawConfig(){const m=byId[cfg.mid];const total=estSec(m,cfg.rounds,cfg.secs);
+  openModal(`<span class="label">초시계 설정</span><h2>${esc(m.name)}</h2>
+  <p class="small muted">단계마다 시간을 정하세요. 0:00으로 두면 선생님이 직접 넘기는 단계가 돼요.</p>
+  ${m.rounds?`<div class="cfg-row"><span class="t">라운드 수<span class="sub" style="display:block">반복 단계를 몇 번 할지</span></span><div class="stepper"><button data-act="rnd" data-d="-1" aria-label="라운드 줄이기">−</button><input type="number" id="cfg-rounds" min="1" max="12" value="${cfg.rounds}"><button data-act="rnd" data-d="1" aria-label="라운드 늘리기">+</button></div></div>`:''}
+  ${m.steps.map((s,i)=>`<div class="cfg-row"><span class="t">${i+1}. ${esc(s[0])}${s[3]?`<span class="loopmark">${s[3]===2?'라운드 사이':'라운드마다'}</span>`:''}</span><div class="stepper"><button data-act="sec" data-i="${i}" data-d="-30" aria-label="30초 줄이기">−</button><input type="text" id="cfg-s${i}" data-i="${i}" class="secin" value="${fmt(cfg.secs[i])}" inputmode="numeric"><button data-act="sec" data-i="${i}" data-d="30" aria-label="30초 늘리기">+</button></div></div>`).join('')}
+  <div class="total"><span>예상 총 소요시간<span class="sub" style="display:block">수동 단계 제외</span></span><b id="cfg-total">${fmt(total)}</b></div>
+  <div class="opts">
+    <label><input type="checkbox" id="cfg-warn" ${cfg.warn?'checked':''}> 끝나기 30초 전에 알림</label>
+    <label><input type="checkbox" id="cfg-auto" ${cfg.autoNext?'checked':''}> 시간이 끝나면 자동으로 다음 단계로</label>
+    <label>종료음 <select id="cfg-sound">${Object.entries(SOUND_NAMES).map(([k,v])=>`<option value="${k}" ${cfg.sound===k?'selected':''}>${v}</option>`).join('')}</select> <button class="btn ghost" data-act="try">들어 보기</button></label>
+  </div>
+  <div class="row"><button class="btn primary big" data-act="start">▶ 시작</button><button class="btn" data-act="resetcfg">기본값으로</button></div>
+  <div class="row" style="margin-top:12px"><input type="text" id="cfg-name" placeholder="레시피 이름 (예: 5-3 월드카페 4라운드)" style="flex:1;min-width:180px"><button class="btn" data-act="saveRecipe">이 설정 저장</button></div>`);
+  document.querySelectorAll('.secin').forEach(inp=>inp.onchange=()=>{cfg.secs[+inp.dataset.i]=Math.min(5940,parseTime(inp.value));inp.value=fmt(cfg.secs[+inp.dataset.i]);updTotal()});
+  const ri=$('#cfg-rounds');if(ri)ri.onchange=()=>{cfg.rounds=Math.max(1,Math.min(12,parseInt(ri.value)||1));ri.value=cfg.rounds;updTotal()};
+  $('#cfg-warn').onchange=e=>cfg.warn=e.target.checked;$('#cfg-auto').onchange=e=>cfg.autoNext=e.target.checked;$('#cfg-sound').onchange=e=>cfg.sound=e.target.value;
+}
+function updTotal(){$('#cfg-total').textContent=fmt(estSec(byId[cfg.mid],cfg.rounds,cfg.secs))}
+
+/* ---------- 진행 모드(칠판) ---------- */
+let run=null,ticker=null,wake=null;
+function startRun(c){const m=byId[c.mid];audio();
+  run={cfg:c,m,seq:buildSeq(m,c.rounds,c.secs),i:0};closeModal();$('#board').hidden=false;
+  try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>wake=w).catch(()=>{})}catch(e){}
+  $('#bName').textContent=m.name;goStep(0);clearInterval(ticker);ticker=setInterval(tick,200)}
+function goStep(i){if(!run)return;run.i=Math.max(0,Math.min(run.seq.length-1,i));const s=run.seq[run.i];
+  run.done=false;run.warned=false;run.paused=false;run.total=s.sec*1000;run.remain=run.total;run.endAt=Date.now()+run.remain;clearTimeout(run.nt);drawBoard()}
+function drawBoard(){const s=run.seq[run.i],n=run.seq[run.i+1];
+  $('#bPos').textContent=`${run.i+1} / ${run.seq.length} 단계`;
+  $('#bRound').textContent=s.round?`라운드 ${s.round} / ${run.cfg.rounds}`:'';
+  $('#bTitle').textContent=s.title;$('#bDesc').textContent=s.desc;
+  $('#bNext').textContent=n?`다음: ${n.title}${n.round?` (라운드 ${n.round})`:''}${n.sec?` · ${fmt(n.sec)}`:''}`:'마지막 단계예요';
+  $('#bPause').textContent=s.sec?(run.paused?'계속 ▶':'일시정지'):'다음 단계 ▶';
+  $('#bRail').innerHTML=run.seq.map((x,j)=>`<li class="${j===run.i?'on':j<run.i?'done':''}"><span>${esc(x.title)}${x.round?` · ${x.round}`:''}</span><span>${x.sec?fmt(x.sec):'수동'}</span></li>`).join('');
+  const on=$('#bRail .on');on&&on.scrollIntoView({block:'nearest'});drawClock()}
+function drawClock(){const s=run.seq[run.i],c=$('#bClock');
+  if(!s.sec){c.textContent='준비되면 다음으로';c.className='clock manual';$('#bBar').style.width='0';return}
+  c.textContent=run.done?'시간 끝!':fmt(Math.ceil(run.remain/1000));
+  c.className='clock'+(run.done?' over':run.remain<=30000?' warn':'');
+  $('#bBar').style.width=Math.min(100,100*(1-run.remain/run.total))+'%'}
+function tick(){if(!run)return;const s=run.seq[run.i];if(!s.sec||run.paused||run.done)return;
+  run.remain=run.endAt-Date.now();
+  if(run.cfg.warn&&!run.warned&&run.remain<=30000&&run.total>45000){run.warned=true;warnBeep()}
+  if(run.remain<=0){run.remain=0;run.done=true;SOUNDS[run.cfg.sound]();
+    if(run.cfg.autoNext&&run.i<run.seq.length-1)run.nt=setTimeout(()=>goStep(run.i+1),1800)}
+  drawClock()}
+function togglePause(){const s=run.seq[run.i];if(!s.sec){goStep(run.i+1);return}
+  if(run.done){goStep(run.i+1);return}
+  run.paused=!run.paused;if(!run.paused)run.endAt=Date.now()+run.remain;drawBoard()}
+function addTime(ms){const s=run.seq[run.i];if(!s.sec)return;
+  run.remain=Math.max(1000,run.remain+ms);if(run.done){run.done=false;clearTimeout(run.nt)}run.total=Math.max(run.total,run.remain);run.endAt=Date.now()+run.remain;if(run.remain>30000)run.warned=false;drawClock()}
+function closeBoard(){clearInterval(ticker);if(run)clearTimeout(run.nt);run=null;$('#board').hidden=true;$('#bPickLayer').hidden=true;try{wake&&wake.release()}catch(e){}wake=null;try{document.fullscreenElement&&document.exitFullscreen()}catch(e){}}
+
+/* ---------- 공정 뽑기 ---------- */
+let sessionPicked=new Set();
+function fairPick(fair){const c=cur();let pool=c.students.filter(n=>!fair||!sessionPicked.has(n));if(!pool.length){sessionPicked.clear();pool=[...c.students]}
+  if(!fair)return rand(pool);
+  const w=pool.map(n=>1/Math.pow(1+(c.counts[n]||0),2));let r=Math.random()*w.reduce((a,b)=>a+b,0);
+  for(let i=0;i<pool.length;i++){r-=w[i];if(r<=0)return pool[i]}return pool[pool.length-1]}
+function animatePick(el,fair,wait,done){const c=cur();if(!c.students.length){el.innerHTML='<div class="mid">우리 반 기록 탭에서 명단을 먼저 입력하세요</div>';return}
+  let t=wait;const pickNow=()=>{let k=0;const iv=setInterval(()=>{el.innerHTML=`<div class="huge shake">${esc(rand(c.students))}</div>`;tone(1200,.03,'square',.03);if(++k>14){clearInterval(iv);const who=fairPick(fair);sessionPicked.add(who);tone(988,.25,'triangle',.25);tone(1319,.4,'triangle',.2,.12);done(who)}},70)};
+  if(t>0){el.innerHTML=`<div class="hint">생각하는 시간이에요. 선생님은 아직 뽑지 않아요.</div><div class="huge">${t}</div>`;
+    const iv=setInterval(()=>{t--;if(t<=0){clearInterval(iv);pickNow()}else el.innerHTML=`<div class="hint">생각하는 시간이에요. 선생님은 아직 뽑지 않아요.</div><div class="huge">${t}</div>`},1000)}else pickNow()}
+function boardPick(){const L=$('#bPickLayer');L.hidden=false;L.innerHTML='<div id="bp"></div>';
+  animatePick($('#bp'),true,0,who=>{L.innerHTML=`<div class="who">${esc(who)}</div><div class="row" style="justify-content:center"><button class="bbtn main" data-act="bpRec" data-n="${esc(who)}">발표함 ✓ 기록</button><button class="bbtn" data-act="bpick">다시 뽑기</button><button class="bbtn" data-act="bpClose">닫기</button></div>`})}
+
+/* ---------- 도구 ---------- */
+let tool='pick';
+const T={wait:5,fair:true,loveList:null,beat:{bpm:100,on:false,iv:null,b:0,idx:0},pass:null,relay:[],gsize:4,groups:null};
+T.loveList=store.get('love',['안경을 쓴 친구','오늘 아침밥을 먹은 친구','동생이 있는 친구','생일이 여름인 친구','반려동물을 키우는 친구','운동화 끈이 있는 친구','이름에 ㅇ이 들어가는 친구','선생님을 사랑하는 친구','어제 책을 읽은 친구','줄무늬 옷을 입은 친구','매운 음식을 잘 먹는 친구','오늘 기분이 좋은 친구']);
+function renderTools(){stopBeat();
+  $('#v-tools').innerHTML=`<div class="toolnav">${Object.entries(TOOLS).map(([k,v])=>`<button data-act="tool" data-tool="${k}" aria-pressed="${k===tool}"><b>${v}</b><span>${toolSub(k)}</span></button>`).join('')}</div>
+  <div class="stage" id="stage"></div>
+  <div class="panel coach"><h3>발표 코칭 팁</h3><ul>
+   <li><b>기다려 주세요.</b> 교사가 질문하고 답을 기다리는 시간은 평균 2초라고 해요. 공정 뽑기의 “생각하는 시간”을 5~10초로 두세요.</li>
+   <li><b>복창하지 마세요.</b> 교사가 학생 발표를 매끄럽게 다시 말해 주면, 학생들은 친구 발표를 듣지 않게 돼요.</li>
+   <li><b>연결하는 발문을 쓰세요.</b> “철수야, 영희의 발표에 어떤 생각이 들었니?”, “영희가 말한 내용은 교과서 몇 쪽에서 찾을 수 있을까?”</li>
+   <li><b>먼저 떠올린 친구의 답을 칠판에 적게 하면</b> 나머지 친구들이 힌트를 얻어요.</li>
+  </ul><p class="small src" style="margin:10px 0 0">출처: <a href="${SRC.t.url}" target="_blank" rel="noopener">${SRC.t.name}</a></p></div>`;
+  drawTool()}
+function toolSub(k){return{pick:'많이 안 한 친구 우선',rps:'선생님 손 대신',love:'조건 카드 뽑기',arrow:'시작 친구와 숫자',beat:'번개 발표 짝짝 박자',pass:'통과한 친구 챙기기',relay:'호명 순서 기록',groups:'무작위 모둠'}[k]}
+function drawTool(){const S=$('#stage');if(!S)return;const c=cur();
+  if(tool==='pick'){S.innerHTML=`<div class="hint">${esc(c.name)} · 발표를 적게 한 친구가 더 잘 뽑혀요.</div><div id="pickOut"><div class="mid">누가 발표할까요?</div></div>
+    <div class="row" style="justify-content:center"><label><input type="checkbox" id="tf" ${T.fair?'checked':''}> 공정 모드</label><label>생각하는 시간 <select id="tw">${[0,5,10,15].map(v=>`<option value="${v}" ${T.wait===v?'selected':''}>${v?v+'초':'없음'}</option>`).join('')}</select></label></div>
+    <button class="bbtn main" data-act="doPick">뽑기</button>`;
+    $('#tf').onchange=e=>T.fair=e.target.checked;$('#tw').onchange=e=>T.wait=+e.target.value}
+  if(tool==='rps'){S.innerHTML=`<div class="hint">화면이 선생님 손이에요. 화면과 똑같이 낸 학생이 발표해요.</div><div id="rpsOut" class="huge" style="font-size:clamp(90px,18vw,180px)">✊✌️🖐</div><button class="bbtn main" data-act="doRps">가위 바위 보!</button>`}
+  if(tool==='love'){S.innerHTML=`<div class="hint">“선생님은 …를 사랑합니다!” 해당하는 친구가 일어나 발표해요.</div><div id="loveOut" class="mid">선생님은 <span style="color:var(--chalk-hi)">?</span> 를 사랑합니다</div>
+    <button class="bbtn main" data-act="doLove">조건 뽑기</button><div class="row" style="justify-content:center"><input type="text" id="loveIn" placeholder="조건 추가 (예: 수학을 좋아하는 친구)" style="min-width:240px"><button class="bbtn" data-act="addLove">추가</button></div>
+    <div class="passq">${T.loveList.map((l,i)=>`<span>${esc(l)} <button class="bbtn" style="padding:0 6px;font-size:12px" data-act="delLove" data-i="${i}" aria-label="삭제">✕</button></span>`).join('')}</div>`}
+  if(tool==='arrow'){S.innerHTML=`<div class="hint">모두 친구 한 명을 손가락으로 가리키세요. 시작할 친구부터 숫자만큼 화살표를 따라가요.</div><div id="arOut" class="mid">“발표 화살표를 쏘세요!”</div><button class="bbtn main" data-act="doArrow">시작 친구와 숫자 정하기</button>`}
+  if(tool==='beat'){const b=T.beat;S.innerHTML=`<div class="hint">한 명이 말하고 다 함께 “짝짝”. 박자에 맞춰 이름이 넘어가요.</div><div id="beatName" class="huge">${esc(c.students[b.idx%Math.max(1,c.students.length)]||'')}</div>
+    <div class="beats">${[1,2,3,4].map(i=>`<i id="bt${i}" class="${i>2?'clap':''}">${i>2?'짝':'말'}</i>`).join('')}</div>
+    <label>빠르기 <input type="range" id="bpm" min="60" max="160" value="${b.bpm}"> <span id="bpmv">${b.bpm}</span> BPM</label>
+    <div class="row" style="justify-content:center"><button class="bbtn main" data-act="beatToggle">${b.on?'멈추기':'시작'}</button><button class="bbtn" data-act="beatReset">처음부터</button></div>`;
+    $('#bpm').oninput=e=>{b.bpm=+e.target.value;$('#bpmv').textContent=b.bpm;if(b.on){stopBeat(true);startBeat()}}}
+  if(tool==='pass'){if(!T.pass||T.pass.cid!==c.id)T.pass={cid:c.id,order:[...c.students],i:0,q:[],phase:1,done:0};const P=T.pass;const list=P.phase===1?P.order:P.q0;const who=list[P.i];
+    S.innerHTML=`<div class="hint">${P.phase===1?'한 바퀴째 · 자리 순서대로':'두 바퀴째 · 통과했던 친구 차례'} (발표 ${P.done}명)</div>
+    ${who?`<div class="huge">${esc(who)}</div><div class="row" style="justify-content:center"><button class="bbtn main" data-act="passTalk">발표 ✓</button><button class="bbtn" data-act="passSkip">${P.phase===1?'통과 (나중에)':'다음 기회에'}</button></div>`:`<div class="mid">${P.phase===1&&P.q.length?'한 바퀴 끝! 통과한 친구 차례로 넘어가요':'모두 끝났어요 👏'}</div>${P.phase===1&&P.q.length?'<button class="bbtn main" data-act="passPhase">통과한 친구 시작</button>':''}`}
+    ${P.q.length&&P.phase===1?`<div><div class="hint">통과한 친구</div><div class="passq">${P.q.map(n=>`<span>${esc(n)}</span>`).join('')}</div></div>`:''}
+    <button class="bbtn" data-act="passReset">처음부터</button>`}
+  if(tool==='relay'){const used=new Set(T.relay);S.innerHTML=`<div class="hint">발표자가 부른 친구를 누르면 순서와 발표가 기록돼요.</div>
+    <div class="chain">${T.relay.length?T.relay.map((n,i)=>`${i?'<em>→</em>':''}<span>${esc(n)}</span>`).join(''):'<em>첫 발표자를 누르세요</em>'}</div>
+    <div class="namegrid">${c.students.map(n=>`<button data-act="relayAdd" data-n="${esc(n)}" class="${used.has(n)?'used':''}">${esc(n)}</button>`).join('')}</div>
+    <div class="row" style="justify-content:center"><button class="bbtn" data-act="relayUndo">되돌리기</button><button class="bbtn" data-act="relayReset">새 릴레이</button></div>`}
+  if(tool==='groups'){S.innerHTML=`<div class="row" style="justify-content:center"><label>모둠 인원 <select id="gs">${[2,3,4,5,6].map(v=>`<option ${T.gsize===v?'selected':''}>${v}</option>`).join('')}</select> 명</label><button class="bbtn main" data-act="doGroups">모둠 만들기</button></div>
+    ${T.groups?`<div class="groups">${T.groups.map((g,i)=>`<div><b>${i+1}모둠</b>${g.map(esc).join(', ')}</div>`).join('')}</div>`:'<div class="hint">인원을 고르고 모둠 만들기를 누르세요.</div>'}`;
+    $('#gs').onchange=e=>T.gsize=+e.target.value}
+}
+function startBeat(){const b=T.beat;b.on=true;const step=()=>{const c=cur();b.b=b.b%4+1;
+  [1,2,3,4].forEach(i=>{const e=$('#bt'+i);e&&e.classList.toggle('on',i===b.b)});
+  if(b.b===1){tone(523,.08,'triangle',.12);const n=$('#beatName');if(n&&c.students.length)n.textContent=c.students[b.idx%c.students.length];b.idx++}
+  else if(b.b>2)clap()};
+  b.iv=setInterval(step,60000/b.bpm);step()}
+function stopBeat(keep){const b=T.beat;clearInterval(b.iv);if(!keep)b.on=false}
+
+/* ---------- 추천 ---------- */
+const R={time:'',group:'',stage:'',burden:''};
+function renderRecommend(){
+  const Q=(k,title,opts)=>`<div class="q"><h3>${title}</h3><div class="chips">${opts.map(([v,t])=>`<button class="chip" data-act="rq" data-k="${k}" data-v="${v}" aria-pressed="${R[k]===v}">${t}</button>`).join('')}</div></div>`;
+  let out='';
+  if(Object.values(R).some(Boolean)){
+    const sc=METHODS.map(m=>{let s=0;const e=estMin(m);
+      if(R.time==='s')s+=e<=6?3:e<=10?1:-2;if(R.time==='m')s+=e>6&&e<=18?3:e<=6?1:0;if(R.time==='l')s+=e>15?3:e>8?1:-1;
+      if(R.group)s+=m.group===R.group?3:m.group==='전체'&&R.group!=='개인'?1:0;
+      if(R.stage)s+=m.stage.includes(R.stage)?2:-1;
+      if(R.burden==='low')s+=m.burden===1?2:m.burden===3?-3:0;if(R.burden==='high')s+=m.burden>=2?2:0;
+      return{m,s:s+Math.random()*.4}}).sort((a,b)=>b.s-a.s).slice(0,3);
+    out=`<h3 style="font-size:22px;margin-top:6px">이런 방법은 어떠세요?</h3><div class="rec-out">${sc.map(({m},i)=>`<div class="rec-item"><span class="rank">${i+1}</span><div><h3>${esc(m.name)}</h3><p>${esc(m.sum)}</p><p class="small">${m.group} · 약 ${estMin(m)}분 · 부담 <span class="dots">${dots(m.burden)}</span></p></div><div class="row"><button class="btn" data-act="open" data-id="${m.id}">자세히</button><button class="btn primary" data-act="config" data-id="${m.id}">▶ 진행</button></div></div>`).join('')}</div>`}
+  $('#v-recommend').innerHTML=`<p class="muted" style="margin-top:0">질문에 답할수록 추천이 좁혀져요. 같은 칩을 다시 누르면 선택이 풀려요.</p>
+  ${Q('time','시간은 얼마나 있나요?',[['s','5분 안팎'],['m','10~15분'],['l','20분 이상']])}
+  ${Q('group','어떤 형태로 할까요?',[['개인','개인'],['짝','짝'],['모둠','모둠'],['전체','반 전체']])}
+  ${Q('stage','수업의 어느 부분인가요?',[['도입','도입 · 생각 열기'],['전개','전개 · 생각 나누기'],['정리','정리 · 배움 공유']])}
+  ${Q('burden','학생들의 발표 분위기는요?',[['low','발표를 어려워해요'],['high','발표를 잘하는 편이에요']])}${out}`}
+
+/* ---------- 우리 반 ---------- */
+let confirmAct=null;
+function renderClass(){const c=cur();const counts=c.students.map(n=>[n,c.counts[n]||0]);const max=Math.max(1,...counts.map(x=>x[1]));
+  const zero=counts.filter(x=>!x[1]).length,total=counts.reduce((a,x)=>a+x[1],0);
+  const sorted=[...counts].sort((a,b)=>a[1]-b[1]);
+  $('#v-class').innerHTML=`<div class="classgrid">
+  <div class="panel"><span class="label">반 정보</span>
+    <div class="row" style="margin:8px 0"><input type="text" id="cname" value="${esc(c.name)}" style="flex:1"><button class="btn" data-act="newClass">+ 새 반</button></div>
+    <label class="small muted" for="roster">학생 명단 (한 줄에 한 명, 또는 띄어쓰기로 구분)</label>
+    <textarea id="roster">${esc(c.students.join('\n'))}</textarea>
+    <div class="row" style="margin-top:8px"><button class="btn primary" data-act="saveClass">명단 저장</button><button class="btn danger ghost" data-act="askDelClass">이 반 삭제</button></div>
+    ${confirmAct==='del'?`<div class="confirm" style="margin-top:8px">“${esc(c.name)}”을 삭제할까요? <button class="btn danger" data-act="delClass">삭제</button><button class="btn" data-act="noConfirm">취소</button></div>`:''}
+    <p class="small muted">명단과 기록은 이 브라우저에만 저장되고 서버로 보내지 않아요. 전담 선생님은 반을 여러 개 만들어 위쪽 선택 상자로 바꾸세요.</p>
+  </div>
+  <div class="panel"><span class="label">발표 기록</span>
+    <div class="summary" style="margin-top:8px"><div><b>${total}</b><span class="small muted">총 발표</span></div><div><b style="color:var(--danger)">${zero}</b><span class="small muted">아직 0회</span></div><div><b>${c.students.length?(total/c.students.length).toFixed(1):0}</b><span class="small muted">1인 평균</span></div></div>
+    <p class="small muted" style="margin-top:0">적게 발표한 친구가 위에 있어요. 도구에서 “발표함”을 누르면 쌓여요.</p>
+    <div class="bars">${sorted.map(([n,k])=>`<div class="b"><span class="${k?'':'zero'}">${esc(n)}</span><span class="track"><i style="width:${100*k/max}%"></i></span><span class="n">${k}</span></div>`).join('')}</div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost" data-act="askReset">기록 초기화</button></div>
+    ${confirmAct==='reset'?`<div class="confirm">발표 기록을 모두 지울까요? <button class="btn danger" data-act="resetCounts">지우기</button><button class="btn" data-act="noConfirm">취소</button></div>`:''}
+  </div></div>`}
+
+/* ---------- 이벤트 ---------- */
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+$('#classSel').onchange=e=>{curId=e.target.value;save();T.pass=null;T.relay=[];T.groups=null;sessionPicked.clear();render();toast(cur().name+'(으)로 바꿨어요')};
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#bPickLayer').hidden)$('#bPickLayer').hidden=true;else if(run)return;else closeModal()}
+  if(run&&!['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){if(e.key===' '){e.preventDefault();togglePause()}if(e.key==='ArrowRight')goStep(run.i+1);if(e.key==='ArrowLeft')goStep(run.i-1)}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,d=b.dataset;
+  switch(a){
+  case 'close':closeModal();break;
+  case 'f':F[d.k]=d.k==='burden'?+d.v:(F[d.k]===d.v?'':d.v);renderCatalog();break;
+  case 'open':openDetail(d.id);break;
+  case 'config':openConfig(d.id);break;
+  case 'gotool':closeModal();tool=d.tool;showTab('tools');break;
+  case 'rnd':cfg.rounds=Math.max(1,Math.min(12,cfg.rounds+ +d.d));$('#cfg-rounds').value=cfg.rounds;updTotal();break;
+  case 'sec':{const i=+d.i;cfg.secs[i]=Math.max(0,Math.min(5940,cfg.secs[i]+ +d.d));$('#cfg-s'+i).value=fmt(cfg.secs[i]);updTotal();break}
+  case 'try':audio();SOUNDS[cfg.sound]();break;
+  case 'resetcfg':openConfig(cfg.mid);break;
+  case 'start':startRun({...cfg});break;
+  case 'saveRecipe':{const nm=$('#cfg-name').value.trim()||`${byId[cfg.mid].name} ${cfg.rounds>1?cfg.rounds+'라운드':''}`.trim();recipes=[...recipes,{...cfg,secs:[...cfg.secs],id:'r'+Date.now(),name:nm}];save();toast('레시피 “'+nm+'” 저장');break}
+  case 'runRecipe':{const r=recipes.find(x=>x.id===d.id);r&&openConfig(r.mid,r);break}
+  case 'delRecipe':recipes=recipes.filter(x=>x.id!==d.id);save();renderCatalog();break;
+  case 'bclose':closeBoard();break;
+  case 'bpause':togglePause();break;
+  case 'bnext':goStep(run.i+1);break;
+  case 'bprev':goStep(run.i-1);break;
+  case 'bplus':addTime(60000);break;
+  case 'bminus':addTime(-30000);break;
+  case 'bfull':try{document.fullscreenElement?document.exitFullscreen():$('#board').requestFullscreen().catch(()=>toast('이 화면에서는 전체 화면을 쓸 수 없어요'))}catch(err){toast('이 화면에서는 전체 화면을 쓸 수 없어요')}break;
+  case 'bpick':boardPick();break;
+  case 'bpRec':recordTalk(d.n);$('#bPickLayer').hidden=true;break;
+  case 'bpClose':$('#bPickLayer').hidden=true;break;
+  case 'tool':tool=d.tool;renderTools();break;
+  case 'doPick':audio();animatePick($('#pickOut'),T.fair,T.wait,who=>{$('#pickOut').innerHTML=`<div class="huge">${esc(who)}</div><div class="row" style="justify-content:center;margin-top:12px"><button class="bbtn main" data-act="rec" data-n="${esc(who)}">발표함 ✓ 기록</button></div>`});break;
+  case 'rec':recordTalk(d.n);b.disabled=true;b.textContent='기록했어요';break;
+  case 'doRps':{audio();const o=$('#rpsOut');const w=['가위','바위','보!'];let k=0;o.style.fontSize='';
+    const iv=setInterval(()=>{if(k<3){o.textContent=w[k];tone(600+k*100,.12,'triangle',.2);k++}else{clearInterval(iv);const h=rand([['✌️','가위'],['✊','바위'],['🖐','보']]);o.innerHTML=`${h[0]}<div class="mid" style="color:var(--chalk)">${h[1]}를 낸 친구 발표!</div>`;tone(988,.3,'triangle',.25)}},450);break}
+  case 'doLove':{audio();const l=rand(T.loveList)||'모든 친구';$('#loveOut').innerHTML=`선생님은<br><span style="color:var(--chalk-hi)">${esc(l)}</span>를<br>사랑합니다!`;tone(880,.3,'sine',.2);break}
+  case 'addLove':{const v=$('#loveIn').value.trim();if(v){T.loveList=[...T.loveList,v];store.set('love',T.loveList);drawTool()}break}
+  case 'delLove':T.loveList=T.loveList.filter((_,i)=>i!==+d.i);store.set('love',T.loveList);drawTool();break;
+  case 'doArrow':{const c=cur();if(!c.students.length)break;const n=5+Math.floor(Math.random()*8);$('#arOut').innerHTML=`<span style="color:var(--chalk-hi)">${esc(rand(c.students))}</span>부터 시작!<br>발표 숫자는 <span style="color:var(--chalk-hi)">${n}</span>`;tone(700,.2,'triangle',.2);break}
+  case 'beatToggle':audio();T.beat.on?stopBeat():startBeat();b.textContent=T.beat.on?'멈추기':'시작';break;
+  case 'beatReset':stopBeat();T.beat.b=0;T.beat.idx=0;drawTool();break;
+  case 'passTalk':{const P=T.pass,list=P.phase===1?P.order:P.q0;recordTalk(list[P.i]);P.done++;P.i++;drawTool();break}
+  case 'passSkip':{const P=T.pass;if(P.phase===1)P.q=[...P.q,P.order[P.i]];P.i++;drawTool();break}
+  case 'passPhase':{const P=T.pass;P.phase=2;P.q0=[...P.q];P.q=[];P.i=0;drawTool();break}
+  case 'passReset':T.pass=null;drawTool();break;
+  case 'relayAdd':T.relay=[...T.relay,d.n];recordTalk(d.n);drawTool();break;
+  case 'relayUndo':{const n=T.relay[T.relay.length-1];if(n){const c=cur();c.counts[n]=Math.max(0,(c.counts[n]||1)-1);save();T.relay=T.relay.slice(0,-1);drawTool()}break}
+  case 'relayReset':T.relay=[];drawTool();break;
+  case 'doGroups':{const s=shuffle(cur().students),k=Math.max(1,Math.round(s.length/T.gsize)),g=Array.from({length:k},()=>[]);s.forEach((n,i)=>g[i%k].push(n));T.groups=g;drawTool();break}
+  case 'rq':R[d.k]=R[d.k]===d.v?'':d.v;renderRecommend();break;
+  case 'saveClass':{const c=cur();const names=[...new Set($('#roster').value.split(/[\n,\s]+/).map(s=>s.trim()).filter(Boolean))];Object.assign(c,{name:$('#cname').value.trim()||c.name,students:names});save();render();toast('명단 저장 · '+names.length+'명');break}
+  case 'newClass':{const id='c'+Date.now();classes=[...classes,{id,name:'새 반',students:[],counts:{},last:{}}];curId=id;save();render();toast('새 반을 만들었어요. 이름과 명단을 입력하세요');break}
+  case 'askDelClass':if(classes.length<2){toast('반이 하나뿐이라 삭제할 수 없어요');break}confirmAct='del';renderClass();break;
+  case 'delClass':classes=classes.filter(c=>c.id!==curId);curId=classes[0].id;confirmAct=null;save();render();break;
+  case 'askReset':confirmAct='reset';renderClass();break;
+  case 'resetCounts':{const c=cur();c.counts={};c.last={};confirmAct=null;save();renderClass();break}
+  case 'noConfirm':confirmAct=null;renderClass();break;
+  }});
+render();
+</script>
+</body>
+</html>
