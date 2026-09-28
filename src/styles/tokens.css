@@ -1,0 +1,83 @@
+:root {
+  --bg: #eef2ef;
+  --surface: #ffffff;
+  --surface2: #f6f8f6;
+  --ink: #1b2a24;
+  --muted: #5b6b64;
+  --line: #d5ddd8;
+  --accent: #1e6a50;
+  --accent-ink: #ffffff;
+  --accent-soft: #dcede5;
+  --hi: #e9b620;
+  --hi-soft: #fbf0cc;
+  --danger: #c2463d;
+
+  /* 분류 색 */
+  --c-pick: #b4552b;
+  --c-all: #1e6a50;
+  --c-low: #3d6fa8;
+  --c-group: #7a4fa0;
+  --c-discuss: #a0405f;
+  --c-act: #8a6a12;
+  --c-formal: #44545d;
+
+  /* 칠판 */
+  --board: #173a2f;
+  --chalk: #f2f0e6;
+  --chalk-dim: #a9c0b5;
+  --chalk-hi: #f5cf4e;
+  --chalk-over: #ff8f7d;
+
+  --display: 'Do Hyeon', 'IBM Plex Sans KR', system-ui, sans-serif;
+  --body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --r: 10px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #101714;
+    --surface: #17211d;
+    --surface2: #1c2823;
+    --ink: #e6eee9;
+    --muted: #97a8a0;
+    --line: #2b3a34;
+    --accent: #4fb58e;
+    --accent-ink: #0b1511;
+    --accent-soft: #1d3a2f;
+    --hi: #f2c94c;
+    --hi-soft: #3a3219;
+    --danger: #e0736a;
+    --c-pick: #e08a5e;
+    --c-all: #4fb58e;
+    --c-low: #7fa9dc;
+    --c-group: #b592d6;
+    --c-discuss: #db7c9c;
+    --c-act: #d5b04e;
+    --c-formal: #9db0ba;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #101714;
+  --surface: #17211d;
+  --surface2: #1c2823;
+  --ink: #e6eee9;
+  --muted: #97a8a0;
+  --line: #2b3a34;
+  --accent: #4fb58e;
+  --accent-ink: #0b1511;
+  --accent-soft: #1d3a2f;
+  --hi: #f2c94c;
+  --hi-soft: #3a3219;
+  --danger: #e0736a;
+  --c-pick: #e08a5e;
+  --c-all: #4fb58e;
+  --c-low: #7fa9dc;
+  --c-group: #b592d6;
+  --c-discuss: #db7c9c;
+  --c-act: #d5b04e;
+  --c-formal: #9db0ba;
+}
