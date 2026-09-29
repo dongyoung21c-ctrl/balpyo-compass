@@ -33,6 +33,11 @@ export function enterStep(seq: readonly RunStep[], index: number, now: number): 
   };
 }
 
+/** 단계 없이 쓰는 타이머 탭용: 주어진 초부터 바로 흐른다. */
+export function startTimer(sec: number, now: number): TimerState {
+  return enterStep([{ title: '', desc: '', sec, round: 0, stepIndex: 0 }], 0, now);
+}
+
 export function tick(state: TimerState, now: number, warnEnabled: boolean): { state: TimerState; events: TimerEvent[] } {
   if (state.status !== 'running') return { state, events: [] };
   const remainingMs = Math.max(0, state.endsAt - now);

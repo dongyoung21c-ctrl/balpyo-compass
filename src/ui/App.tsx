@@ -9,6 +9,8 @@ import { ClassView } from './classroom/ClassView';
 import { Header } from './Header';
 import { Recommend } from './Recommend';
 import { parseRoute, routeToHash, TABS, type Route } from './route';
+import { TimerView } from './timer/TimerView';
+import { useClassTimer } from './timer/useClassTimer';
 import { ToolsView } from './tools/ToolsView';
 
 function useHashRoute(): [Route, (r: Route) => void] {
@@ -32,6 +34,7 @@ export function App() {
   const [route, navigate] = useHashRoute();
   const [setup, setSetup] = useState<SetupRequest | null>(null);
   const [run, setRun] = useState<RunConfig | null>(null);
+  const timer = useClassTimer();
 
   const openMethod = (methodId: string) => navigate({ ...route, tab: 'catalog', methodId });
   const closeMethod = () => navigate({ ...route, methodId: undefined });
@@ -54,6 +57,7 @@ export function App() {
           >
             <span class="tab-long" aria-hidden="true">{t.label}</span>
             <span class="tab-short" aria-hidden="true">{t.short}</span>
+            {t.id === 'timer' && timer.badge && <span class="tab-badge">{timer.badge}</span>}
           </a>
         ))}
       </nav>
@@ -61,6 +65,7 @@ export function App() {
         {route.tab === 'catalog' && <Catalog onOpen={openMethod} onRunRecipe={(r) => setRun(r)} onEditRecipe={(r) => setSetup({ methodId: r.methodId, recipe: r })} />}
         {route.tab === 'recommend' && <Recommend onOpen={openMethod} onRun={(methodId) => setSetup({ methodId })} />}
         {route.tab === 'tools' && <ToolsView tool={route.tool} onTool={(tool) => navigate({ tab: 'tools', tool })} />}
+        {route.tab === 'timer' && <TimerView timer={timer} />}
         {route.tab === 'class' && <ClassView />}
       </main>
       <footer class="foot">

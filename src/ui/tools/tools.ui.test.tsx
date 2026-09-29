@@ -124,6 +124,39 @@ describe('발표자 정하기 도구', () => {
     expect(within(stage()).getByRole('button', { name: '다시 섞기' })).toBeTruthy();
   });
 
+  it('모둠 뽑기: 명단 없이 모둠 수만 골라 겹치지 않게 뽑는다', () => {
+    renderApp({ data: emptyData(), hash: '#/tools/grouppick' });
+    fireEvent.change(within(stage()).getByLabelText(/모둠 수/), { target: { value: '2' } });
+    const draw = () => {
+      fireEvent.click(within(stage()).getByRole('button', { name: '모둠 뽑기' }));
+      advance(13 * 80 + 50);
+      return within(stage()).getByText((_, el) => el?.classList.contains('huge') ?? false).textContent;
+    };
+    const first = draw();
+    const second = draw();
+    expect([first, second].sort()).toEqual(['1모둠', '2모둠']);
+    expect(within(stage()).getByText(/2번째/)).toBeTruthy();
+    draw();
+    expect(within(stage()).getByText(/처음부터 다시 돌아요/)).toBeTruthy();
+    fireEvent.click(within(stage()).getByRole('button', { name: '처음부터' }));
+    expect(within(stage()).getByText('어느 모둠이 발표할까요?')).toBeTruthy();
+    expect(within(stage()).queryByText(/번째/)).toBeNull();
+  });
+
+  it('모둠 뽑기: 모둠 편성에서 만든 모둠과 모둠원을 쓴다', () => {
+    renderApp({ data: dataWithClass(), hash: '#/tools/groups' });
+    fireEvent.change(within(stage()).getByLabelText(/모둠 인원/), { target: { value: '2' } });
+    fireEvent.click(within(stage()).getByRole('button', { name: '모둠 만들기' }));
+    fireEvent.click(screen.getByRole('tab', { name: /모둠 뽑기/ }));
+    expect(within(stage()).getByText(/만든 2모둠 중에서/)).toBeTruthy();
+    expect(within(stage()).queryByLabelText(/모둠 수/)).toBeNull();
+    fireEvent.click(within(stage()).getByRole('button', { name: '모둠 뽑기' }));
+    advance(13 * 80 + 50);
+    const members = stage().querySelector('.members')?.textContent ?? '';
+    expect(members.split(', ')).toHaveLength(2);
+    expect(members.split(', ').every((n) => STUDENTS.includes(n))).toBe(true);
+  });
+
   it('도구 탭을 누르면 주소가 바뀐다', () => {
     renderApp({ data: dataWithClass(), hash: '#/tools/pick' });
     fireEvent.click(screen.getByRole('tab', { name: /모둠 편성/ }));

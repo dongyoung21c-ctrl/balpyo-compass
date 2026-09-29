@@ -21,9 +21,11 @@ export interface ToolSession {
   readonly relay: readonly RelayEntry[];
   readonly pass: PassQueue | null;
   readonly groups: readonly (readonly string[])[] | null;
+  /** 모둠 뽑기에서 뽑힌 모둠 번호(1부터), 뽑힌 순서대로 */
+  readonly groupPicks: readonly number[];
 }
 
-const EMPTY: ToolSession = { picked: new Set(), relay: [], pass: null, groups: null };
+const EMPTY: ToolSession = { picked: new Set(), relay: [], pass: null, groups: null, groupPicks: [] };
 
 interface SessionApi {
   readonly session: ToolSession;

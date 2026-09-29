@@ -3,7 +3,7 @@ export type GroupForm = '개인' | '짝' | '모둠' | '전체';
 export type LessonStage = '도입' | '전개' | '정리';
 export type Burden = 1 | 2 | 3;
 export type SourceId = 'citrusy97' | 'urimilssam' | 'teacher0325';
-export type ToolId = 'pick' | 'rps' | 'love' | 'arrow' | 'beat' | 'pass' | 'relay' | 'groups';
+export type ToolId = 'pick' | 'rps' | 'love' | 'arrow' | 'beat' | 'pass' | 'relay' | 'groups' | 'grouppick';
 
 /** once: 한 번만, each: 라운드마다 반복, between: 라운드 사이에만(마지막 라운드 뒤에는 생략) */
 export type Repeat = 'once' | 'each' | 'between';

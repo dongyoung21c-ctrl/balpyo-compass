@@ -31,6 +31,7 @@ export const TOOLS: Readonly<Record<ToolId, ToolInfo>> = {
   pass: { name: '줄줄이·패스 명단', sub: '통과한 친구 챙기기' },
   relay: { name: '릴레이 기록', sub: '호명 순서 기록' },
   groups: { name: '모둠 편성', sub: '무작위 모둠' },
+  grouppick: { name: '모둠 뽑기', sub: '발표할 모둠 정하기' },
 };
 
 export const TOOL_IDS = Object.keys(TOOLS) as ToolId[];
