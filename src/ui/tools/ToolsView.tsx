@@ -2,6 +2,7 @@ import { SOURCES, TOOL_IDS, TOOLS } from '../../data/labels';
 import type { ToolId } from '../../domain/types';
 import { useAppStore } from '../../state/AppStore';
 import { BeatTool, GroupsTool, PassTool, RelayTool } from './RosterTools';
+import { GroupPickTool } from './GroupPickTool';
 import { ArrowTool, LoveTool, PickTool, RpsTool } from './PickTools';
 
 interface Props {
@@ -52,6 +53,7 @@ function ToolBody({ tool }: { tool: ToolId }) {
     case 'pass': return <PassTool />;
     case 'relay': return <RelayTool />;
     case 'groups': return <GroupsTool />;
+    case 'grouppick': return <GroupPickTool />;
   }
 }
 

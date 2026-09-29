@@ -173,7 +173,7 @@ export function GroupsTool() {
           </select>{' '}
           명
         </label>
-        <button type="button" class="bbtn main" onClick={() => update((s) => ({ ...s, groups: makeGroups(current?.students ?? [], size) }))}>
+        <button type="button" class="bbtn main" onClick={() => update((s) => ({ ...s, groups: makeGroups(current?.students ?? [], size), groupPicks: [] }))}>
           {groups ? '다시 섞기' : '모둠 만들기'}
         </button>
       </div>

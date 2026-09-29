@@ -16,7 +16,7 @@ describe('route', () => {
   });
 
   it('읽은 주소를 다시 만들 수 있다', () => {
-    for (const h of ['#/catalog', '#/recommend', '#/class', '#/tools/beat', '#/catalog/2stay']) {
+    for (const h of ['#/catalog', '#/recommend', '#/timer', '#/class', '#/tools/beat', '#/catalog/2stay']) {
       expect(routeToHash(parseRoute(h))).toBe(h);
     }
   });

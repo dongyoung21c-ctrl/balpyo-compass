@@ -1,4 +1,4 @@
-import { enterStep, tick, pause, resume, addTime, progress, WARN_BEFORE_MS } from './timer';
+import { enterStep, startTimer, tick, pause, resume, addTime, progress, WARN_BEFORE_MS } from './timer';
 import type { RunStep } from './sequence';
 
 const seq: RunStep[] = [
@@ -71,6 +71,12 @@ describe('timer', () => {
   it('수동 단계에는 시간을 더할 수 없다', () => {
     const m = enterStep(seq, 1, 0);
     expect(addTime(m, 60_000, 0)).toBe(m);
+  });
+
+  it('타이머 탭: 주어진 시간부터 바로 흐른다', () => {
+    const t = startTimer(180, 1_000);
+    expect(t).toMatchObject({ status: 'running', durationMs: 180_000, endsAt: 181_000 });
+    expect(tick(t, 181_000, false).events).toEqual(['finish']);
   });
 
   it('진행률', () => {

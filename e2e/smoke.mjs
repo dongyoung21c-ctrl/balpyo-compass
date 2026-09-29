@@ -108,9 +108,31 @@ try {
     assert.equal(await page.locator('.summary dd').first().innerText(), '1');
   });
 
+  await step('모둠 뽑기', async () => {
+    await page.goto(`${url}#/tools/grouppick`);
+    await page.getByRole('button', { name: '모둠 뽑기', exact: true }).click();
+    await page.locator('.gchips li.used').waitFor();
+    await shot(page, '7b-grouppick');
+  });
+
+  await step('타이머 탭: 시작, 멈춤, 다른 탭에서도 흐름', async () => {
+    await nav(page, '타이머').click();
+    await page.getByRole('button', { name: '1분', exact: true }).click();
+    await page.getByRole('button', { name: '▶ 시작' }).click();
+    await page.waitForTimeout(1300);
+    assert.match(await page.getByRole('timer').innerText(), /^0:5[89]$/);
+    await shot(page, '7c-timer');
+    await nav(page, '추천받기').click();
+    assert.match(await nav(page, '타이머').innerText(), /0:5\d/);
+    await nav(page, '타이머').click();
+    await page.getByRole('button', { name: '일시정지' }).click();
+    await page.getByRole('button', { name: '시간 다시 정하기' }).click();
+    await page.getByRole('button', { name: '▶ 시작' }).waitFor();
+  });
+
   await step('휴대폰 너비에서 가로 스크롤이 없다', async () => {
     await page.setViewportSize({ width: 375, height: 800 });
-    for (const hash of ['#/catalog', '#/tools/relay', '#/class', '#/recommend']) {
+    for (const hash of ['#/catalog', '#/tools/relay', '#/tools/grouppick', '#/timer', '#/class', '#/recommend']) {
       await page.goto(`${url}${hash}`);
       await page.waitForTimeout(100);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
